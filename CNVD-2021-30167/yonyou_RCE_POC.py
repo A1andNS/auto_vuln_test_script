@@ -6,7 +6,7 @@ vul_url = open("vul_url.txt", "w")
 
 
 def get_ip():
-    f = open("ip.txt", "r")    #ip list
+    f = open("ip.txt", "r")    #ip list for example:http://192.168.1.2:8080/
     lines = f.readlines()
     ip_list = []
     for line in lines:
