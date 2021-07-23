@@ -15,7 +15,7 @@ def search_ip(url):
         return ""
 
 def get_ip_reverse():
-    f = open("vul_url.txt","r")
+    f = open("vul_url.txt","r")     # vul_url.txt为由其他自动化脚本生成的
     lines = f.readlines()
     for line in lines:
         line = line.strip()
